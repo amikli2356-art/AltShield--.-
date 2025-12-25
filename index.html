@@ -49,13 +49,11 @@
             }
         }
         
-        /* Glassmorphism header */
         .header {
             position: relative;
             z-index: 1;
             background: rgba(10, 25, 47, 0.25);
             backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
             border-bottom: 1px solid rgba(100, 200, 255, 0.15);
             padding: 30px 0;
             text-align: center;
@@ -88,7 +86,6 @@
             z-index: 1;
         }
         
-        /* Modern cards with gradient borders */
         .auth-card {
             background: rgba(15, 35, 60, 0.3);
             backdrop-filter: blur(15px);
@@ -181,16 +178,6 @@
             transform: translateY(0) scale(0.98);
         }
         
-        .btn-secondary {
-            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-            margin-top: 10px;
-        }
-        
-        .btn-secondary:hover {
-            background: linear-gradient(135deg, #219d54 0%, #27ae60 100%);
-        }
-        
-        /* Animated background gradient */
         .login-page {
             display: flex;
             justify-content: center;
@@ -205,7 +192,6 @@
             50% { background-position: 100% 50%; }
         }
         
-        /* Forum layout */
         .forum-grid {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -277,7 +263,6 @@
             font-size: 16px;
         }
         
-        /* Tickets section */
         .tickets-section {
             background: rgba(15, 35, 60, 0.3);
             backdrop-filter: blur(15px);
@@ -358,7 +343,6 @@
             font-weight: 500;
         }
         
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -512,7 +496,6 @@
             background: linear-gradient(135deg, #27ae60, #2ecc71);
         }
         
-        /* Admin panel */
         .admin-panel {
             display: none;
             background: rgba(15, 35, 60, 0.4);
@@ -586,7 +569,6 @@
             to { transform: translateY(0); opacity: 1; }
         }
         
-        /* Footer */
         .footer {
             position: relative;
             z-index: 1;
@@ -604,7 +586,6 @@
             font-weight: 500;
         }
         
-        /* Responsive */
         @media (max-width: 968px) {
             .forum-grid {
                 grid-template-columns: 1fr;
@@ -634,14 +615,13 @@
             }
         }
         
-        /* Hidden class */
         .forum-hidden {
             display: none !important;
         }
     </style>
 </head>
 <body>
-    <!-- Улучшенная анимация падающего снега -->
+    <!-- Анимация падающего снега -->
     <div class="snowflakes" id="snowflakes"></div>
     
     <div class="header">
@@ -656,7 +636,6 @@
                 <form id="loginForm" onsubmit="handleLogin(event)">
                     <h2>🔐 Вход в систему</h2>
                     
-                    <!-- Отладочная информация -->
                     <div id="debugInfo" style="background: rgba(231, 76, 60, 0.2); border: 1px solid #e74c3c; border-radius: 8px; padding: 10px; margin-bottom: 15px; display: none;">
                         <strong>Ошибка:</strong> <span id="errorText"></span>
                     </div>
@@ -664,11 +643,6 @@
                     <input id="loginUsername" placeholder="Логин" required type="text">
                     <input id="loginPassword" placeholder="Пароль" required type="password">
                     <button class="btn-primary" type="submit">Войти →</button>
-                    
-                    <!-- Быстрый тестовый вход -->
-                    <button class="btn-secondary" onclick="quickTestLogin()" style="margin-top: 10px;">
-                        ⚡ Тестовый вход (Владелец)
-                    </button>
                     
                     <p style="margin-top: 20px; text-align: center; color: #5dade2; font-weight: 500;">
                         Нет аккаунта? <a href="#" onclick="showRegister(); return false;" style="color: #a0d8ff; font-weight: 600;">Зарегистрироваться</a>
@@ -736,7 +710,6 @@
         </div>
     </div>
     
-    <!-- Скрипты -->
     <script>
         // ==================== НАСТРОЙКИ ====================
         const OWNER_LOGIN = "kjuvboltm098";
@@ -836,7 +809,7 @@
                 'user': '👤 Пользователь'
             }[userData.role];
             
-            if (userData.role === 'owner') {
+            if (userData.role === 'owner' || userData.role === 'admin') {
                 document.getElementById('adminPanel').style.display = 'block';
                 loadAdminPanel();
             } else {
@@ -844,13 +817,6 @@
             }
             
             loadTickets();
-        }
-        
-        // ==================== БЫСТРЫЙ ВХОД ====================
-        function quickTestLogin() {
-            document.getElementById('loginUsername').value = OWNER_LOGIN;
-            document.getElementById('loginPassword').value = OWNER_PASSWORD;
-            handleLogin({ preventDefault: () => {} });
         }
         
         // ==================== РЕГИСТРАЦИЯ ====================
@@ -1156,8 +1122,8 @@
         // ==================== ОБРАБОТЧИКИ ====================
         window.addEventListener('load', () => {
             console.log('✅ AltShield форум загружен!');
-            console.log('💡 Нажмите "Тестовый вход" или используйте:'); 
-            console.log('   Логин: kjuvboltm098'); 
+            console.log('💡 Для входа используйте:');
+            console.log('   Логин: kjuvboltm098');
             console.log('   Пароль: artik098');
         });
         
@@ -1170,4 +1136,4 @@
     </script>
 
 </body>
-</html>
+                        </html>
