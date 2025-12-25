@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AltShield - Тех.Поддержка</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0c1e2e 0%, #0a1428 100%);
+            color: #e6f7ff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Анимация падающего снега */
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .header {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 25, 47, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: #e6f7ff;
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.7);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Страница входа */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        
+        .login-form {
+            background: rgba(15, 35, 60, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 10, 30, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            color: #a0d8ff;
+            margin-bottom: 30px;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            background: rgba(10, 25, 47, 0.5);
+            color: #e6f7ff;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #1e5799, #20a0d8);
+            border: none;
+            color: #e6f7ff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .login-form button:hover {
+            background: linear-gradient(45deg, #2989d8, #20c0f8);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-form button:disabled {
+background: #555;
+            cursor: not-allowed;
+        }
+        
+        .login-form button:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Форум */
+        .forum-hidden {
+            display: none;
+        }
+        
+        .sidebar {
+            background: rgba(15, 35, 60, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+        }
+        
+        .sidebar h3 {
+            color: #a0d8ff;
+            margin-bottom: 15px;
+        }
+        
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: linear-gradient(45deg, #1e5799, #20a0d8);
+            border: none;
+            color: #e6f7ff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar button:hover {
+            background: linear-gradient(45deg, #2989d8, #20c0f8);
+        }
+        
+        .user-info {
+            background: rgba(20, 50, 80, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .user-info p {
+            margin: 5px 0;
+        }
+        
+        .user-info .role {
+            font-weight: bold;
+            color: #5dade2;
+        }
+        
+        .tickets-section {
+            background: rgba(15, 35, 60, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .tickets-section h2 {
+            color: #a0d8ff;
+            margin-bottom: 20px;
+        }
+        
+        .ticket-item {
+            background: rgba(20, 50, 80, 0.2);
+            border: 1px solid rgba(100, 200, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ticket-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+        }
+        
+        .ticket-item.unread {
+            border-left: 4px solid #5dade2;
+            background: rgba(30, 70, 110, 0.3);
+        }
+        
+        .ticket-item.resolved {
+            opacity: 0.6;
+        }
+        
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .ticket-title {
+            font-weight: bold;
+            color: #e6f7ff;
+        }
+        
+        .ticket-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-open {
+            background: #e74c3c;
+        }
+        
+        .status-answered {
+            background: #f39c12;
+        }
+        
+        .status-resolved {
+            background: #27ae60;
+        }
+        
+        .ticket-meta {
+            font-size: 14px;
+            color: #a0d8ff;
+        }
+        
+        /* Модальное окно тикета */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(15, 35, 60, 0.9);
+backdrop-filter: blur(15px);
+            border-radius: 15px;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            margin: 50px auto;
+            padding: 30px;
+            color: #e6f7ff;
+            position: relative;
+            overflow-y: auto;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #a0d8ff;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: #e6f7ff;
+        }
+        
+        .ticket-messages {
+            margin-top: 20px;
+        }
+        
+        .message {
+            background: rgba(20, 50, 80, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #5dade2;
+        }
+        
+        .message.admin {
+            border-left: 4px solid #1e5799;
+            background: rgba(30, 87, 153, 0.3);
+        }
+        
+        .message-owner {
+            font-weight: bold;
+            color: #a0d8ff;
+            margin-bottom: 5px;
+        }
+        
+        .message-text {
+            color: #e6f7ff;
+            line-height: 1.6;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: #5dade2;
+            margin-top: 5px;
+        }
+        
+        .reply-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(100, 200, 255, 0.2);
+        }
+        
+        .reply-form textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            background: rgba(10, 25, 47, 0.5);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 5px;
+            color: #e6f7ff;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+        }
+        
+        .reply-form button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #1e5799, #20a0d8);
+            border: none;
+            color: #e6f7ff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .reply-form button:hover {
+            background: linear-gradient(45deg, #2989d8, #20c0f8);
+        }
+        
+        /* Админ панель */
+        .admin-panel {
+            display: none;
+            background: rgba(15, 35, 60, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .admin-panel h3 {
+            color: #a0d8ff;
+            margin-bottom: 15px;
+        }
+        
+        .user-management {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(20, 50, 80, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .user-item button {
+            padding: 5px 10px;
+            background: #e74c3c;
+            border: none;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .user-item button:hover {
+            background: #c0392b;
+        }
+        
+        .success-message {
+            background: #27ae60;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+margin-bottom: 15px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .container {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимация падающего снега -->
+    <div class="snowflakes" id="snowflakes"></div>
+    
+    <div class="header">
+        <h1>❄️ AltShield - Техническая Поддержка ❄️</h1>
+    </div>
+    
+    <div class="container">
+        <!-- Страница входа -->
+        <div class="login-page" id="loginPage">
+            <form class="login-form" id="loginForm" onsubmit="handleLogin(event)">
+                <h2>Вход в систему</h2>
+                <input id="loginUsername" placeholder="Логин" required type="text">
+                <input id="loginPassword" placeholder="Пароль" required type="password">
+                <button type="submit">Войти</button>
+                <p style="margin-top: 15px; text-align: center; color: #5dade2;">
+                    Нет аккаунта? <a href="#" onclick="showRegister()" style="color: #a0d8ff;">Зарегистрироваться</a>
+                </p>
+            </form>
+        </div>
+        
+        <!-- Страница регистрации -->
+        <div class="login-page forum-hidden" id="registerPage">
+            <form class="login-form" id="registerForm" onsubmit="handleRegister(event)">
+                <h2>Регистрация</h2>
+                <input id="regUsername" placeholder="Логин" required type="text">
+                <input id="regPassword" placeholder="Пароль" required type="password">
+                <button type="submit">Зарегистрироваться</button>
+                <button onclick="showLogin()" style="margin-top: 10px;">Назад к входу</button>
+            </form>
+        </div>
+        
+        <!-- Форум -->
+        <div class="forum-hidden" id="forumPage">
+            <div style="display: grid; grid-template-columns: 250px 1fr; gap: 20px;">
+                <div class="sidebar">
+                    <div class="user-info">
+                        <p><strong>Пользователь:</strong> <span id="currentUser">Гость</span></p>
+                        <p class="role">Роль: <span id="userRole">Гость</span></p>
+                    </div>
+                    <button onclick="createTicket()">Создать тикет</button>
+                    <button onclick="logout()">Выйти</button>
+                </div>
+                
+                <div>
+                    <!-- Админ панель (видна только владельцу) -->
+                    <div class="admin-panel" id="adminPanel">
+                        <h3>🛡 Панель владельца</h3>
+                        <div class="success-message" id="adminSuccess"></div>
+                        <div class="user-management" id="userManagement"></div>
+                    </div>
+                    
+                    <!-- Список тикетов -->
+                    <div class="tickets-section">
+                        <h2>📨 Мои тикеты</h2>
+                        <div id="ticketsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно тикета -->
+    <div class="modal" id="ticketModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTicketTitle"></h2>
+            <div class="ticket-messages" id="ticketMessages"></div>
+            <div class="reply-form" id="replyForm">
+                <textarea id="replyText" placeholder="Введите ваш ответ..."></textarea>
+                <button onclick="sendReply()">Отправить ответ</button>
+                <button id="resolveBtn" onclick="resolveTicket()" style="background: #27ae60; margin-left: 10px;">Закрыть тикет</button>
+            </div>
+</div>
+    </div>
+    
+    <script>
+        // Инициализация системы
+        const OWNER_LOGIN = "kjuvboltm098";
+        const OWNER_PASSWORD = "artik098";
+        
+        // Инициализация localStorage
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify({
+                [OWNER_LOGIN]: {
+                    password: OWNER_PASSWORD,
+                    role: "owner"
+                }
+            }));
+        }
+        
+        if (!localStorage.getItem('tickets')) {
+            localStorage.setItem('tickets', JSON.stringify([]));
+        }
+        
+        if (!localStorage.getItem('nextTicketId')) {
+            localStorage.setItem('nextTicketId', '1');
+        }
+        
+        let currentUser = null;
+        let currentTicket = null;
+        
+        // Эффект падающего снега
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄️';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            document.getElementById('snowflakes').appendChild(snowflake);
+            setTimeout(() => snowflake.remove(), 5000);
+        }
+        
+        setInterval(createSnowflake, 200);
+        
+        // Управление страницами
+        function showLogin() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('registerPage').classList.add('forum-hidden');
+        }
+        
+        function showRegister() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('registerPage').classList.remove('forum-hidden');
+        }
+        
+        function showForum() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('registerPage').classList.add('forum-hidden');
+            document.getElementById('forumPage').classList.remove('forum-hidden');
+            
+            // Обновить информацию о пользователе
+            document.getElementById('currentUser').textContent = currentUser;
+            
+            const users = JSON.parse(localStorage.getItem('users'));
+            const role = users[currentUser].role;
+            document.getElementById('userRole').textContent = role;
+            
+            // Показать админ панель для владельца
+            if (role === 'owner') {
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAdminPanel();
+            } else {
+                document.getElementById('adminPanel').style.display = 'none';
+            }
+            
+            loadTickets();
+        }
+        
+        // Регистрация
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            
+            const users = JSON.parse(localStorage.getItem('users'));
+            
+            if (users[username]) {
+                alert('Пользователь с таким логином уже существует!');
+                return;
+            }
+            
+            if (username.length < 3 || password.length < 6) {
+                alert('Минимум 3 символа для логина и 6 для пароля!');
+                return;
+            }
+            
+            users[username] = {
+                password: password,
+                role: "user"
+            };
+            
+            localStorage.setItem('users', JSON.stringify(users));
+alert('Регистрация успешна! Теперь войдите в систему.');
+            document.getElementById('registerForm').reset();
+            showLogin();
+        }
+        
+        // Вход
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const users = JSON.parse(localStorage.getItem('users'));
+            
+            if (!users[username] || users[username].password !== password) {
+                alert('Неверный логин или пароль!');
+                return;
+            }
+            
+            currentUser = username;
+            document.getElementById('loginForm').reset();
+            showForum();
+        }
+        
+        // Выход
+        function logout() {
+            currentUser = null;
+            currentTicket = null;
+            document.getElementById('forumPage').classList.add('forum-hidden');
+            document.getElementById('loginPage').style.display = 'flex';
+        }
+        
+        // Создание тикета
+        function createTicket() {
+            const title = prompt('Введите тему тикета:');
+            if (!title) return;
+            
+            const message = prompt('Опишите вашу проблему:');
+            if (!message) return;
+            
+            const tickets = JSON.parse(localStorage.getItem('tickets'));
+            const ticketId = localStorage.getItem('nextTicketId');
+            
+            const newTicket = {
+                id: ticketId,
+                title: title,
+                author: currentUser,
+                status: 'open',
+                createdAt: new Date().toISOString(),
+                messages: [
+                    {
+                        author: currentUser,
+                        text: message,
+                        timestamp: new Date().toISOString(),
+                        isAdmin: false
+                    }
+                ]
+            };
+            
+            tickets.push(newTicket);
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+            localStorage.setItem('nextTicketId', (parseInt(ticketId) + 1).toString());
+            
+            alert('Тикет создан успешно!');
+            loadTickets();
+        }
+        
+        // Загрузка списка тикетов
+        function loadTickets() {
+            const tickets = JSON.parse(localStorage.getItem('tickets'));
+            const container = document.getElementById('ticketsList');
+            const users = JSON.parse(localStorage.getItem('users'));
+            const userRole = users[currentUser].role;
+            
+            let filteredTickets = tickets;
+            
+            // Пользователи видят только свои тикеты, админы - все
+            if (userRole !== 'owner' && userRole !== 'admin') {
+                filteredTickets = tickets.filter(t => t.author === currentUser);
+            }
+            
+            container.innerHTML = '';
+            
+            if (filteredTickets.length === 0) {
+                container.innerHTML = '<p style="color: #5dade2;">Тикетов пока нет</p>';
+                return;
+            }
+            
+            filteredTickets.forEach(ticket => {
+                const ticketDiv = document.createElement('div');
+                ticketDiv.className = ticket-item ${ticket.status === 'resolved' ? 'resolved' : ''} ${ticket.status === 'answered' && ticket.author === currentUser ? 'unread' : ''};
+                ticketDiv.onclick = () => openTicket(ticket.id);
+                
+                const statusText = {
+                    'open': 'Открыт',
+                    'answered': 'Отвечен',
+                    'resolved': 'Решен'
+                };
+ticketDiv.innerHTML = 
+                    <div class="ticket-header">
+                        <span class="ticket-title">${ticket.title}</span>
+                        <span class="ticket-status status-${ticket.status}">${statusText[ticket.status]}</span>
+                    </div>
+                    <div class="ticket-meta">
+                        Автор: ${ticket.author} | Создан: ${new Date(ticket.createdAt).toLocaleString()}
+                    </div>
+                ;
+                
+                container.appendChild(ticketDiv);
+            });
+        }
+        
+        // Открытие тикета
+        function openTicket(ticketId) {
+            const tickets = JSON.parse(localStorage.getItem('tickets'));
+            currentTicket = tickets.find(t => t.id === ticketId);
+            
+            if (!currentTicket) return;
+            
+            document.getElementById('modalTicketTitle').textContent = currentTicket.title;
+            
+            // Загрузка сообщений
+            const messagesContainer = document.getElementById('ticketMessages');
+            messagesContainer.innerHTML = '';
+            
+            currentTicket.messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = message ${msg.isAdmin ? 'admin' : ''};
+                
+                messageDiv.innerHTML = 
+                    <div class="message-owner">${msg.author} ${msg.isAdmin ? '(Администратор)' : ''}</div>
+                    <div class="message-text">${msg.text}</div>
+                    <div class="message-time">${new Date(msg.timestamp).toLocaleString()}</div>
+                ;
+                
+                messagesContainer.appendChild(messageDiv);
+            });
+            
+            // Показать/скрыть форму ответа
+            const userRole = JSON.parse(localStorage.getItem('users'))[currentUser].role;
+            const canReply = userRole === 'owner'  userRole === 'admin'  currentTicket.author === currentUser;
+            
+            document.getElementById('replyForm').style.display = canReply && currentTicket.status !== 'resolved' ? 'block' : 'none';
+            document.getElementById('resolveBtn').style.display = (userRole === 'owner' || userRole === 'admin') && currentTicket.status !== 'resolved' ? 'inline-block' : 'none';
+            
+            // Если пользователь открыл тикет со статусом "answered", меняем на "open"
+            if (currentTicket.status === 'answered' && currentTicket.author === currentUser) {
+                currentTicket.status = 'open';
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                loadTickets();
+            }
+            
+            document.getElementById('ticketModal').style.display = 'block';
+        }
+        
+        // Закрыть модальное окно
+        function closeModal() {
+            document.getElementById('ticketModal').style.display = 'none';
+            document.getElementById('replyText').value = '';
+            currentTicket = null;
+        }
+        
+        // Отправить ответ
+        function sendReply() {
+            const text = document.getElementById('replyText').value.trim();
+            if (!text) return;
+            
+            const users = JSON.parse(localStorage.getItem('users'));
+            const userRole = users[currentUser].role;
+            const isAdmin = userRole === 'owner' || userRole === 'admin';
+            
+            // Добавить сообщение
+            currentTicket.messages.push({
+                author: currentUser,
+                text: text,
+                timestamp: new Date().toISOString(),
+                isAdmin: isAdmin
+            });
+            
+            // Обновить статус
+            if (isAdmin) {
+currentTicket.status = 'answered';
+            } else {
+                currentTicket.status = 'open';
+            }
+            
+            // Сохранить
+            const tickets = JSON.parse(localStorage.getItem('tickets'));
+            const index = tickets.findIndex(t => t.id === currentTicket.id);
+            tickets[index] = currentTicket;
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+            
+            // Обновить UI
+            document.getElementById('replyText').value = '';
+            openTicket(currentTicket.id);
+            loadTickets();
+        }
+        
+        // Закрыть тикет
+        function resolveTicket() {
+            if (!confirm('Закрыть тикет? Это действие нельзя отменить.')) return;
+            
+            currentTicket.status = 'resolved';
+            
+            const tickets = JSON.parse(localStorage.getItem('tickets'));
+            const index = tickets.findIndex(t => t.id === currentTicket.id);
+            tickets[index] = currentTicket;
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+            
+            alert('Тикет закрыт!');
+            closeModal();
+            loadTickets();
+        }
+        
+        // Админ панель
+        function loadAdminPanel() {
+            const users = JSON.parse(localStorage.getItem('users'));
+            const container = document.getElementById('userManagement');
+            
+            container.innerHTML = '';
+            
+            Object.keys(users).forEach(username => {
+                if (username === currentUser) return; // Не показывать самого себя
+                
+                const userDiv = document.createElement('div');
+                userDiv.className = 'user-item';
+                
+                const roleText = {
+                    'owner': 'Владелец',
+                    'admin': 'Администратор',
+                    'user': 'Пользователь'
+                };
+                
+                userDiv.innerHTML = 
+                    <span>${username} - <strong>${roleText[users[username].role]}</strong></span>
+                    ${users[username].role !== 'owner' ? 
+                        <button onclick="toggleAdmin('${username}')">
+                            ${users[username].role === 'admin' ? 'Убрать админа' : 'Сделать админом'}
+                        </button> : ''
+                    }
+                ;
+                
+                container.appendChild(userDiv);
+            });
+        }
+        
+        function toggleAdmin(username) {
+            const users = JSON.parse(localStorage.getItem('users'));
+            
+            if (users[username].role === 'admin') {
+                users[username].role = 'user';
+            } else {
+                users[username].role = 'admin';
+            }
+            
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            const success = document.getElementById('adminSuccess');
+            success.textContent = Роль пользователя ${username} обновлена!;
+            success.style.display = 'block';
+            
+            setTimeout(() => {
+                success.style.display = 'none';
+            }, 3000);
+            
+            loadAdminPanel();
+        }
+        
+        // Проверить, если пользователь уже вошел
+        window.onload = function() {
+            // Для демонстрации, пользователь должен войти каждый раз
+        };
+    </script>
+
+</body>
+</html>
